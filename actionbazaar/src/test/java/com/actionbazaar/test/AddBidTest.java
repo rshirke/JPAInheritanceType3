@@ -21,9 +21,9 @@ import org.junit.runner.RunWith;
 import com.actionbazaar.dao.BidDao;
 import com.actionbazaar.dao.DefaultBidDao;
 import com.actionbazaar.domain.Bid;
+import com.actionbazaar.interfaces.web.PlaceBid;
 import com.actionbazaar.service.BidService;
 import com.actionbazaar.service.DefaultBidService;
-import com.actionbazaar.web.PlaceBid;
 
 @RunWith(Arquillian.class)
 public class AddBidTest {
