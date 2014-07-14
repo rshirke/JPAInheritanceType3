@@ -3,7 +3,7 @@ package com.actionbazaar.application;
 import com.actionbazaar.domain.Bid;
 
 public interface BidService {
-	public void addBid(Bid bid);
+	public Bid addBid(Bid bid);
 
 	public Bid getBid(Long id);
 

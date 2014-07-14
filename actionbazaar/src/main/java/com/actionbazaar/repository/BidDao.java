@@ -3,7 +3,7 @@ package com.actionbazaar.repository;
 import com.actionbazaar.domain.Bid;
 
 public interface BidDao {
-	public void addBid(Bid bid);
+	public Bid addBid(Bid bid);
 
 	public Bid getBid(Long id);
 

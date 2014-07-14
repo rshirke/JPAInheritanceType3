@@ -11,8 +11,10 @@ public class DefaultBidDao implements BidDao {
 	private EntityManager entityManager;
 
 	@Override
-	public void addBid(Bid bid) {
+	public Bid addBid(Bid bid) {
 		entityManager.persist(bid);
+		
+		return bid;
 	}
 
 	@Override

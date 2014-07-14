@@ -13,8 +13,8 @@ public class DefaultBidService implements BidService {
 	private BidDao bidDao;
 
 	@Override
-	public void addBid(Bid bid) {
-		bidDao.addBid(bid);
+	public Bid addBid(Bid bid) {
+		return bidDao.addBid(bid);
 	}
 
 	@Override

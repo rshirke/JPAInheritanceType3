@@ -19,10 +19,4 @@
 	<welcome-file-list>
 		<welcome-file>add_bid.jsf</welcome-file>
 	</welcome-file-list>
-	<data-source>
-		<name>java:comp/env/jdbc/ActionBazaarDB</name>
-		<class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
-		<url>jdbc:derby:/tmp/actionbazaar-database;create=true
-		</url>
-	</data-source>
 </web-app>

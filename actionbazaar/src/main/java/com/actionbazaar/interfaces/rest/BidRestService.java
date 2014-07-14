@@ -15,26 +15,27 @@ import com.actionbazaar.application.BidService;
 import com.actionbazaar.domain.Bid;
 
 @Stateless
-@Path("/bid")
+@Path("/bids")
 public class BidRestService {
 
 	@EJB
 	private BidService bidService;
 
 	@POST
-	@Consumes("text/xml")
+	@Consumes("application/json")
 	public void addBid(Bid bid) {
 		bidService.addBid(bid);
 	}
 
 	@GET
-	@Produces("text/xml")
+	@Produces("application/json")
+	
 	public Bid getBid(@QueryParam("id") Long id) {
 		return bidService.getBid(id);
 	}
 
 	@PUT
-	@Consumes("text/xml")
+	@Consumes("application/json")
 	public void updateBid(@QueryParam("id") Long id, Bid bid) {
 		bidService.updateBid(bid);
 	}
