@@ -3,6 +3,7 @@ package com.actionbazaar.dao;
 import javax.enterprise.inject.Alternative;
 
 import com.actionbazaar.domain.Bid;
+import com.actionbazaar.repository.BidDao;
 
 @Alternative
 public class MockBidDao implements BidDao {

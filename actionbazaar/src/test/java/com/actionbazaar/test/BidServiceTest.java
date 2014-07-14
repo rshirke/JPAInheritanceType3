@@ -13,11 +13,11 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.actionbazaar.dao.BidDao;
-import com.actionbazaar.dao.DefaultBidDao;
+import com.actionbazaar.application.BidService;
+import com.actionbazaar.application.DefaultBidService;
 import com.actionbazaar.domain.Bid;
-import com.actionbazaar.service.BidService;
-import com.actionbazaar.service.DefaultBidService;
+import com.actionbazaar.repository.BidDao;
+import com.actionbazaar.repository.DefaultBidDao;
 
 @RunWith(Arquillian.class)
 public class BidServiceTest {

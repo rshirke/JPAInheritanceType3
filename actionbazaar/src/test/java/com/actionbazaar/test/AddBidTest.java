@@ -18,12 +18,12 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.actionbazaar.dao.BidDao;
-import com.actionbazaar.dao.DefaultBidDao;
+import com.actionbazaar.application.BidService;
+import com.actionbazaar.application.DefaultBidService;
 import com.actionbazaar.domain.Bid;
-import com.actionbazaar.interfaces.web.PlaceBid;
-import com.actionbazaar.service.BidService;
-import com.actionbazaar.service.DefaultBidService;
+import com.actionbazaar.interfaces.web.AddBid;
+import com.actionbazaar.repository.BidDao;
+import com.actionbazaar.repository.DefaultBidDao;
 
 @RunWith(Arquillian.class)
 public class AddBidTest {
@@ -34,7 +34,7 @@ public class AddBidTest {
 				.create(WebArchive.class, "test.war")
 				.addClasses(BidService.class, DefaultBidService.class,
 						BidDao.class, DefaultBidDao.class, Bid.class,
-						PlaceBid.class)
+						AddBid.class)
 				.addAsWebInfResource("test-web.xml", "web.xml")
 				.addAsWebResource("add_bid.xhtml", "add_bid.xhtml")
 				.addAsWebResource("confirm_bid.xhtml", "confirm_bid.xhtml")
