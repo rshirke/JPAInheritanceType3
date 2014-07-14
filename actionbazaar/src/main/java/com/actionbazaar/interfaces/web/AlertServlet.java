@@ -3,6 +3,8 @@ package com.actionbazaar.interfaces.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.json.Json;
+import javax.json.stream.JsonGenerator;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -16,26 +18,33 @@ public class AlertServlet extends HttpServlet {
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
 			throws IOException, ServletException {
-		response.setContentType("text/xml");
+		
+		response.setContentType("application/json");
 
 		PrintWriter out = response.getWriter();
 
-		out.println("<alerts>");
-		out.println("<greeting>" + "Welcome, will sending available alerts"
-				+ "</greeting>");
-
 		long userId = Long.parseLong(request.getParameter("user_id"));
 
-		String[] alerts = { "Fraud alert!", "Outbid alert!",
-				"Item available alert!", "Fees due alert!",
-				"Payment failure alert!" };
-		for (int i = 0; i < alerts.length; i++) {
-			out.println("<alert><user>" + userId + "</user><text>" + alerts[i]
-					+ "</text></alert>");
-		}
+		try (JsonGenerator generator = Json.createGenerator(out)) {
+			generator
+					.writeStartObject()
+					.write("greeting", "Welcome, will sending available alerts")
+					.writeStartArray("alerts");
 
-		out.println("<goodbye>" + "No more alerts for now, timing out"
-				+ "</goodbye>");
-		out.println("</alerts>");
+			String[] alerts = { "Fraud alert!", "Outbid alert!",
+					"Item available alert!", "Fees due alert!",
+					"Payment failure alert!" };
+
+			for (int i = 0; i < alerts.length; i++) {
+				generator.writeStartObject().write("user", userId)
+						.write("text", alerts[i]).writeEnd();
+			}
+
+			generator
+					.writeEnd()
+					.write("goodbye", "No more alerts for now, timing out")
+					.writeEnd()
+					.close();
+		}
 	}
 }
