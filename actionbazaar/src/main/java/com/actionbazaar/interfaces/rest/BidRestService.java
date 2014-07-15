@@ -18,34 +18,34 @@ import com.actionbazaar.domain.Bid;
 @Path("/bids")
 public class BidRestService {
 
-	@EJB
-	private BidService bidService;
+    @EJB
+    private BidService bidService;
 
-	@POST
-	@Consumes("application/json")
-	@Produces("application/json")
-	public Bid addBid(Bid bid) {
-		return bidService.addBid(bid);
-	}
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Bid addBid(Bid bid) {
+        return bidService.addBid(bid);
+    }
 
-	@GET
-	@Path("{id}")
-	@Produces("application/json")
-	public Bid getBid(@PathParam("id") Long id) {
-		return bidService.getBid(id);
-	}
+    @GET
+    @Path("{id}")
+    @Produces("application/json")
+    public Bid getBid(@PathParam("id") Long id) {
+        return bidService.getBid(id);
+    }
 
-	@PUT
-	@Path("{id}")
-	@Consumes("application/json")
-	public void updateBid(@PathParam("id") Long id, Bid bid) {
-		bidService.updateBid(bid);
-	}
+    @PUT
+    @Path("{id}")
+    @Consumes("application/json")
+    public void updateBid(@PathParam("id") Long id, Bid bid) {
+        bidService.updateBid(bid);
+    }
 
-	@DELETE
-	@Path("{id}")
-	public void deleteBid(@PathParam("id") Long id) {
-		Bid bid = bidService.getBid(id);
-		bidService.deleteBid(bid);
-	}
+    @DELETE
+    @Path("{id}")
+    public void deleteBid(@PathParam("id") Long id) {
+        Bid bid = bidService.getBid(id);
+        bidService.deleteBid(bid);
+    }
 }
