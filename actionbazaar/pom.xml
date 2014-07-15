@@ -38,11 +38,11 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency> 
-            <groupId>org.glassfish.jersey.media</groupId> 
-            <artifactId>jersey-media-json-processing</artifactId> 
-            <version>2.5.1</version> 
-            <scope>compile</scope> 
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-processing</artifactId>
+            <version>2.5.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
@@ -79,6 +79,18 @@
             <artifactId>jsfunit-arquillian</artifactId>
             <version>2.0.0.Beta3-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.tyrus</groupId>
+            <artifactId>tyrus-server</artifactId>
+            <version>1.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.tyrus</groupId>
+            <artifactId>tyrus-container-grizzly-server</artifactId>
+            <version>1.7</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>actionbazaar</finalName>
@@ -113,7 +125,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.15</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>false</skipTests>
                 </configuration>
             </plugin>
         </plugins>

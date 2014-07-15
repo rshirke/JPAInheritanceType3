@@ -72,13 +72,15 @@ public class ChatServer {
                 new Object[]{message, session});
 
         for (Session peer : session.getOpenSessions()) {
-            try {
-                logger.log(Level.INFO, "Broadcasting message {0} to peer {1}",
-                        new Object[]{message, peer});
+            if (!peer.equals(session)) {
+                try {
+                    logger.log(Level.INFO, "Broadcasting message {0} to peer {1}",
+                            new Object[]{message, peer});
 
-                peer.getBasicRemote().sendObject(message);
-            } catch (IOException | EncodeException ex) {
-                logger.log(Level.SEVERE, "Error sending message", ex);
+                    peer.getBasicRemote().sendObject(message);
+                } catch (IOException | EncodeException ex) {
+                    logger.log(Level.SEVERE, "Error sending message", ex);
+                }
             }
         }
     }

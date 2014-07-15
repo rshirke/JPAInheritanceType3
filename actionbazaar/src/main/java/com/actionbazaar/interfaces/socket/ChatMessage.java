@@ -62,6 +62,14 @@ public class ChatMessage
         this.message = message;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
     @Override
     public void init(EndpointConfig config) {
         // Nothing to do.
