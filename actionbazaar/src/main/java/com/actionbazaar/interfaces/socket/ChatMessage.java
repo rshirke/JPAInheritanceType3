@@ -37,17 +37,70 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
+package com.actionbazaar.interfaces.socket;
 
-package com.actionbazaar.application;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.websocket.Decoder;
+import javax.websocket.Encoder;
+import javax.websocket.EndpointConfig;
 
-import com.actionbazaar.domain.Bid;
+public class ChatMessage
+        implements Decoder.Text<ChatMessage>, Encoder.Text<ChatMessage> {
 
-public interface BidService {
-	public Bid addBid(Bid bid);
+    private String user;
+    private String message;
 
-	public Bid getBid(Long id);
+    public ChatMessage() {
+        // Nothing to do.
+    }
 
-	public void updateBid(Bid bid);
+    public ChatMessage(String user, String message) {
+        this.user = user;
+        this.message = message;
+    }
 
-	public void deleteBid(Bid bid);
+    @Override
+    public void init(EndpointConfig config) {
+        // Nothing to do.
+    }
+
+    @Override
+    public ChatMessage decode(String value) {
+        try (JsonReader jsonReader = Json.createReader(
+                new StringReader(value))) {
+            JsonObject jsonObject = jsonReader.readObject();
+            user = jsonObject.getString("user");
+            message = jsonObject.getString("message");
+        }
+
+        return this;
+    }
+
+    @Override
+    public boolean willDecode(String string) {
+        return true; // Detect if it's a valid format.
+    }
+
+    @Override
+    public String encode(ChatMessage chatMessage) {
+        JsonObject jsonObject = Json.createObjectBuilder()
+                .add("user", chatMessage.user)
+                .add("message", chatMessage.message)
+                .build();
+
+        return jsonObject.toString();
+    }
+
+    @Override
+    public void destroy() {
+        // Nothing to do.
+    }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" + "user=" + user + ", message=" + message + '}';
+    }
 }

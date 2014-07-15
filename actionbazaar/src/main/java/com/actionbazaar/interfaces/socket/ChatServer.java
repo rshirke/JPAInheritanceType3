@@ -38,16 +38,61 @@
  * holder.
  */
 
-package com.actionbazaar.application;
+package com.actionbazaar.interfaces.socket;
 
-import com.actionbazaar.domain.Bid;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.Singleton;
+import javax.websocket.EncodeException;
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
-public interface BidService {
-	public Bid addBid(Bid bid);
+@ServerEndpoint(value = "/chat",
+        encoders = {ChatMessage.class}, decoders = {ChatMessage.class})
+@Singleton
+public class ChatServer {
 
-	public Bid getBid(Long id);
+    private static final Logger logger = Logger
+            .getLogger(ChatServer.class.getName());
 
-	public void updateBid(Bid bid);
+    private final Set<Session> peers;
 
-	public void deleteBid(Bid bid);
+    public ChatServer() {
+        peers = new HashSet<>();
+    }
+
+    @OnOpen
+    public void onOpen(Session peer) {
+        logger.log(Level.INFO, "Opened session: {0}", peer);
+        peers.add(peer);
+    }
+
+    @OnClose
+    public void onClose(Session peer) {
+        logger.log(Level.INFO, "Closed session: {0}", peer);
+        peers.remove(peer);
+    }
+
+    @OnMessage
+    public void onMessage(ChatMessage message, Session session) {
+        logger.log(Level.INFO, "Received message {0} from peer {1}",
+                new Object[]{message, session});
+
+        for (Session peer : peers) {
+            try {
+                logger.log(Level.INFO, "Broadcasting message {0} to peer {1}",
+                        new Object[]{message, peer});
+
+                peer.getBasicRemote().sendObject(message);
+            } catch (IOException | EncodeException ex) {
+                logger.log(Level.SEVERE, "Error sending message", ex);
+            }
+        }
+    }
 }
