@@ -8,8 +8,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 
 import com.actionbazaar.application.BidService;
 import com.actionbazaar.domain.Bid;
@@ -23,25 +23,28 @@ public class BidRestService {
 
 	@POST
 	@Consumes("application/json")
-	public void addBid(Bid bid) {
-		bidService.addBid(bid);
+	@Produces("application/json")
+	public Bid addBid(Bid bid) {
+		return bidService.addBid(bid);
 	}
 
 	@GET
+	@Path("{id}")
 	@Produces("application/json")
-	
-	public Bid getBid(@QueryParam("id") Long id) {
+	public Bid getBid(@PathParam("id") Long id) {
 		return bidService.getBid(id);
 	}
 
 	@PUT
+	@Path("{id}")
 	@Consumes("application/json")
-	public void updateBid(@QueryParam("id") Long id, Bid bid) {
+	public void updateBid(@PathParam("id") Long id, Bid bid) {
 		bidService.updateBid(bid);
 	}
 
 	@DELETE
-	public void deleteBid(@QueryParam("id") Long id) {
+	@Path("{id}")
+	public void deleteBid(@PathParam("id") Long id) {
 		Bid bid = bidService.getBid(id);
 		bidService.deleteBid(bid);
 	}
