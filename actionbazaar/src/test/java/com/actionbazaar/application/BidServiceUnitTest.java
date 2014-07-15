@@ -20,56 +20,56 @@ import com.actionbazaar.repository.MockBidDao;
 @RunWith(Arquillian.class)
 public class BidServiceUnitTest {
 
-	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap
-				.create(WebArchive.class, "actionbazaar-test.war")
-				.addClasses(BidService.class, DefaultBidService.class,
-						BidDao.class, MockBidDao.class,	Bid.class)
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap
+                .create(WebArchive.class, "actionbazaar-test.war")
+                .addClasses(BidService.class, DefaultBidService.class,
+                        BidDao.class, MockBidDao.class, Bid.class)
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@EJB
-	private BidService bidService;
+    @EJB
+    private BidService bidService;
 
-	@Test
-	public void testAddBid() {
-		// Save a new bid.
-		Bid bid = new Bid();
-		bid.setBidder("rrahman");
-		bid.setItem("Test item");
-		bid.setAmount(100.50);
+    @Test
+    public void testAddBid() {
+        // Save a new bid.
+        Bid bid = new Bid();
+        bid.setBidder("rrahman");
+        bid.setItem("Test item");
+        bid.setAmount(100.50);
 
-		bidService.addBid(bid);
+        bidService.addBid(bid);
 
-		// Make sure it was correctly saved.
-		bid = bidService.getBid(1L);
+        // Make sure it was correctly saved.
+        bid = bidService.getBid(1L);
 
-		assertEquals("nrahman", bid.getBidder());
-		assertEquals("Test item", bid.getItem());
-		assertEquals(new Double(100.00), bid.getAmount());
-	}
+        assertEquals("nrahman", bid.getBidder());
+        assertEquals("Test item", bid.getItem());
+        assertEquals(new Double(100.00), bid.getAmount());
+    }
 
-	@Test
-	public void testUpdateBid() {
-		// Update bid.
-		Bid bid = bidService.getBid(1L);
-		bid.setAmount(101.50);
-		bidService.updateBid(bid);
+    @Test
+    public void testUpdateBid() {
+        // Update bid.
+        Bid bid = bidService.getBid(1L);
+        bid.setAmount(101.50);
+        bidService.updateBid(bid);
 
-		// Make sure bid was updated.
-		bid = bidService.getBid(1L);
+        // Make sure bid was updated.
+        bid = bidService.getBid(1L);
 
-		assertEquals("nrahman", bid.getBidder());
-		assertEquals("Test item", bid.getItem());
-		assertEquals(new Double(100.00), bid.getAmount());
-	}
+        assertEquals("nrahman", bid.getBidder());
+        assertEquals("Test item", bid.getItem());
+        assertEquals(new Double(100.00), bid.getAmount());
+    }
 
-	@Test
-	public void testDeleteBid() {
-		Bid bid = bidService.getBid(1L);
-		bidService.deleteBid(bid);
-		
-		assertNotNull(bidService.getBid(1L));		
-	}
+    @Test
+    public void testDeleteBid() {
+        Bid bid = bidService.getBid(1L);
+        bidService.deleteBid(bid);
+
+        assertNotNull(bidService.getBid(1L));
+    }
 }

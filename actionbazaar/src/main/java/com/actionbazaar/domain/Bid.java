@@ -55,4 +55,10 @@ public class Bid implements Serializable {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+
+	@Override
+	public String toString() {
+		return "Bid [id=" + id + ", bidder=" + bidder + ", item=" + item
+				+ ", amount=" + amount + "]";
+	}
 }

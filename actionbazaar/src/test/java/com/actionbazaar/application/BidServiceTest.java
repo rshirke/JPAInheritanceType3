@@ -21,65 +21,65 @@ import com.actionbazaar.repository.DefaultBidDao;
 @RunWith(Arquillian.class)
 public class BidServiceTest {
 
-	private static Long bidId;
+    private static Long bidId;
 
-	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap
-				.create(WebArchive.class, "actionbazaar-test.war")
-				.addClasses(BidService.class, DefaultBidService.class,
-						BidDao.class, DefaultBidDao.class, Bid.class)
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				.addAsResource("test-persistence.xml",
-						"META-INF/persistence.xml");
-	}
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap
+                .create(WebArchive.class, "actionbazaar-test.war")
+                .addClasses(BidService.class, DefaultBidService.class,
+                        BidDao.class, DefaultBidDao.class, Bid.class)
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsResource("test-persistence.xml",
+                        "META-INF/persistence.xml");
+    }
 
-	@EJB
-	private BidService bidService;
+    @EJB
+    private BidService bidService;
 
-	@Test
-	@InSequence(1)
-	public void testAddBid() {
-		// Save a new bid.
-		Bid bid = new Bid();
-		bid.setBidder("rrahman");
-		bid.setItem("Test item");
-		bid.setAmount(100.50);
+    @Test
+    @InSequence(1)
+    public void testAddBid() {
+        // Save a new bid.
+        Bid bid = new Bid();
+        bid.setBidder("rrahman");
+        bid.setItem("Test item");
+        bid.setAmount(100.50);
 
-		bidService.addBid(bid);
+        bidService.addBid(bid);
 
-		// Make sure it was correctly saved.
-		bidId = bid.getId();
+        // Make sure it was correctly saved.
+        bidId = bid.getId();
 
-		bid = bidService.getBid(bidId);
+        bid = bidService.getBid(bidId);
 
-		assertEquals("rrahman", bid.getBidder());
-		assertEquals("Test item", bid.getItem());
-		assertEquals(new Double(100.50), bid.getAmount());
-	}
+        assertEquals("rrahman", bid.getBidder());
+        assertEquals("Test item", bid.getItem());
+        assertEquals(new Double(100.50), bid.getAmount());
+    }
 
-	@Test
-	@InSequence(2)
-	public void testUpdateBid() {
-		// Update bid.
-		Bid bid = bidService.getBid(bidId);
-		bid.setAmount(101.50);
-		bidService.updateBid(bid);
+    @Test
+    @InSequence(2)
+    public void testUpdateBid() {
+        // Update bid.
+        Bid bid = bidService.getBid(bidId);
+        bid.setAmount(101.50);
+        bidService.updateBid(bid);
 
-		// Make sure bid was updated.
-		bid = bidService.getBid(bidId);
+        // Make sure bid was updated.
+        bid = bidService.getBid(bidId);
 
-		assertEquals("rrahman", bid.getBidder());
-		assertEquals("Test item", bid.getItem());
-		assertEquals(new Double(101.50), bid.getAmount());
-	}
+        assertEquals("rrahman", bid.getBidder());
+        assertEquals("Test item", bid.getItem());
+        assertEquals(new Double(101.50), bid.getAmount());
+    }
 
-	@Test
-	@InSequence(3)
-	public void testDeleteBid() {
-		Bid bid = bidService.getBid(bidId);
-		bidService.deleteBid(bid);
-		
-		assertNull(bidService.getBid(bidId));		
-	}
+    @Test
+    @InSequence(3)
+    public void testDeleteBid() {
+        Bid bid = bidService.getBid(bidId);
+        bidService.deleteBid(bid);
+
+        assertNull(bidService.getBid(bidId));
+    }
 }
