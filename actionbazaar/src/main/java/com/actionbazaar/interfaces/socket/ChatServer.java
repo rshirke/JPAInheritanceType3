@@ -37,15 +37,11 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
 package com.actionbazaar.interfaces.socket;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.Singleton;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -55,28 +51,19 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint(value = "/chat",
         encoders = {ChatMessage.class}, decoders = {ChatMessage.class})
-@Singleton
 public class ChatServer {
 
     private static final Logger logger = Logger
             .getLogger(ChatServer.class.getName());
 
-    private final Set<Session> peers;
-
-    public ChatServer() {
-        peers = new HashSet<>();
-    }
-
     @OnOpen
     public void onOpen(Session peer) {
         logger.log(Level.INFO, "Opened session: {0}", peer);
-        peers.add(peer);
     }
 
     @OnClose
     public void onClose(Session peer) {
         logger.log(Level.INFO, "Closed session: {0}", peer);
-        peers.remove(peer);
     }
 
     @OnMessage
@@ -84,7 +71,7 @@ public class ChatServer {
         logger.log(Level.INFO, "Received message {0} from peer {1}",
                 new Object[]{message, session});
 
-        for (Session peer : peers) {
+        for (Session peer : session.getOpenSessions()) {
             try {
                 logger.log(Level.INFO, "Broadcasting message {0} to peer {1}",
                         new Object[]{message, peer});
