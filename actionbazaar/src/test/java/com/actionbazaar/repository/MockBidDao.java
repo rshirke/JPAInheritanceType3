@@ -1,19 +1,21 @@
 package com.actionbazaar.repository;
 
-import javax.enterprise.inject.Alternative;
-
 import com.actionbazaar.domain.Bid;
-import com.actionbazaar.repository.BidDao;
 
-@Alternative
 public class MockBidDao implements BidDao {
 
 	public Bid addBid(Bid bid) {
-		return null;
+		return bid;
 	}
 
 	public Bid getBid(Long id) {
-		return null;
+		Bid bid = new Bid();
+		bid.setId(id);
+		bid.setBidder("nrahman");
+		bid.setItem("Test item");
+		bid.setAmount(100.00);
+
+		return bid;
 	}
 
 	public void updateBid(Bid bid) {
