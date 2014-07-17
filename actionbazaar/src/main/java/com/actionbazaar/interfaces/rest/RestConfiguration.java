@@ -46,6 +46,7 @@ import org.glassfish.jersey.server.ResourceConfig;
  * JAX-RS configuration.
  */
 @ApplicationPath("rest")
+// TODO Move this to XML.
 public class RestConfiguration extends ResourceConfig {
 
     public RestConfiguration() {

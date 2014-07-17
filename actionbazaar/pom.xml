@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <name>actionbazaar</name>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.actionbazaar</groupId>
@@ -35,7 +37,7 @@
                 <version>1.3.1.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>            
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -76,17 +78,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-webdriver-depchain</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-wls-remote-12.1</artifactId>
             <version>1.0.0.Alpha2</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-drone-webdriver-depchain</artifactId>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>                
         <dependency>
             <groupId>org.glassfish.tyrus</groupId>
             <artifactId>tyrus-server</artifactId>
@@ -125,7 +127,6 @@
                 <version>2.1.1</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!-- <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors> -->
                     <warName>actionbazaar</warName>
                 </configuration>
             </plugin>
