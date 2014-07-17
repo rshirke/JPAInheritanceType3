@@ -46,6 +46,7 @@ import com.actionbazaar.domain.Bid;
 import com.actionbazaar.domain.BidRepository;
 
 @Stateless
+@Profiled
 public class DefaultBidService implements BidService {
 
     @Inject
