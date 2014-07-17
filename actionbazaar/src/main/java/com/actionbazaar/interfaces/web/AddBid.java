@@ -20,9 +20,9 @@ public class AddBid implements Serializable {
     @Produces
     @Named
     @RequestScoped
-    private Bid bid = new Bid();
+    private final Bid bid = new Bid();
 
-    public String addBid() {
+    public String onAdd() {
         bidService.addBid(bid);
 
         return "confirm_bid.jsf";

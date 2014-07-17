@@ -37,7 +37,6 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
 package com.actionbazaar.application;
 
 import javax.ejb.Stateless;
@@ -49,26 +48,26 @@ import com.actionbazaar.domain.BidRepository;
 @Stateless
 public class DefaultBidService implements BidService {
 
-	@Inject
-	private BidRepository bidDao;
+    @Inject
+    private BidRepository bidRepository;
 
-	@Override
-	public Bid addBid(Bid bid) {
-		return bidDao.addBid(bid);
-	}
+    @Override
+    public Bid addBid(Bid bid) {
+        return bidRepository.addBid(bid);
+    }
 
-	@Override
-	public Bid getBid(Long id) {
-		return bidDao.getBid(id);
-	}
+    @Override
+    public Bid getBid(Long id) {
+        return bidRepository.getBid(id);
+    }
 
-	@Override
-	public void updateBid(Bid bid) {
-		bidDao.updateBid(bid);
-	}
+    @Override
+    public void updateBid(Bid bid) {
+        bidRepository.updateBid(bid);
+    }
 
-	@Override
-	public void deleteBid(Bid bid) {
-		bidDao.deleteBid(bid);
-	}
+    @Override
+    public void deleteBid(Bid bid) {
+        bidRepository.deleteBid(bid);
+    }
 }
