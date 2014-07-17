@@ -44,13 +44,13 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.actionbazaar.domain.Bid;
-import com.actionbazaar.repository.BidDao;
+import com.actionbazaar.domain.BidRepository;
 
 @Stateless
 public class DefaultBidService implements BidService {
 
 	@Inject
-	private BidDao bidDao;
+	private BidRepository bidDao;
 
 	@Override
 	public Bid addBid(Bid bid) {

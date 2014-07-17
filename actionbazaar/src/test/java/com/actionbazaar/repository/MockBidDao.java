@@ -1,8 +1,9 @@
 package com.actionbazaar.repository;
 
+import com.actionbazaar.domain.BidRepository;
 import com.actionbazaar.domain.Bid;
 
-public class MockBidDao implements BidDao {
+public class MockBidDao implements BidRepository {
 
 	public Bid addBid(Bid bid) {
 		return bid;

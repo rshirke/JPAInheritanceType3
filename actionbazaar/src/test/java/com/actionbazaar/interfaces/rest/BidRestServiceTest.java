@@ -3,8 +3,8 @@ package com.actionbazaar.interfaces.rest;
 import com.actionbazaar.application.BidService;
 import com.actionbazaar.application.DefaultBidService;
 import com.actionbazaar.domain.Bid;
-import com.actionbazaar.repository.BidDao;
-import com.actionbazaar.repository.DefaultBidDao;
+import com.actionbazaar.domain.BidRepository;
+import com.actionbazaar.infrastructure.database.DefaultBidRepository;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -30,7 +30,7 @@ public class BidRestServiceTest {
                 .create(WebArchive.class, "actionbazaar-test.war")
                 .addClasses(BidRestService.class, RestConfiguration.class,
                         BidService.class, DefaultBidService.class,
-                        BidDao.class, DefaultBidDao.class, Bid.class)
+                        BidRepository.class, DefaultBidRepository.class, Bid.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource("test-weblogic.xml", "weblogic.xml")
                 .addAsResource("test-persistence.xml",

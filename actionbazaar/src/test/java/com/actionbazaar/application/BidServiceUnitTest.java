@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.actionbazaar.domain.Bid;
-import com.actionbazaar.repository.BidDao;
+import com.actionbazaar.domain.BidRepository;
 import com.actionbazaar.repository.MockBidDao;
 
 @RunWith(Arquillian.class)
@@ -25,7 +25,7 @@ public class BidServiceUnitTest {
         return ShrinkWrap
                 .create(WebArchive.class, "actionbazaar-test.war")
                 .addClasses(BidService.class, DefaultBidService.class,
-                        BidDao.class, MockBidDao.class, Bid.class)
+                        BidRepository.class, MockBidDao.class, Bid.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 

@@ -15,8 +15,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.actionbazaar.domain.Bid;
-import com.actionbazaar.repository.BidDao;
-import com.actionbazaar.repository.DefaultBidDao;
+import com.actionbazaar.domain.BidRepository;
+import com.actionbazaar.infrastructure.database.DefaultBidRepository;
 
 @RunWith(Arquillian.class)
 public class BidServiceTest {
@@ -28,7 +28,7 @@ public class BidServiceTest {
         return ShrinkWrap
                 .create(WebArchive.class, "actionbazaar-test.war")
                 .addClasses(BidService.class, DefaultBidService.class,
-                        BidDao.class, DefaultBidDao.class, Bid.class)
+                        BidRepository.class, DefaultBidRepository.class, Bid.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsResource("test-persistence.xml",
                         "META-INF/persistence.xml");
