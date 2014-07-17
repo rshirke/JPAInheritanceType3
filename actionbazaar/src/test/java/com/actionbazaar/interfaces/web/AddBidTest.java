@@ -10,21 +10,17 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(Arquillian.class)
-@WarpTest
 public class AddBidTest {
 
     @Drone
@@ -36,7 +32,7 @@ public class AddBidTest {
     @Deployment(testable = false)
     public static Archive<?> createDeployment() {
         return ShrinkWrap
-                .create(WebArchive.class, "test.war")
+                .create(WebArchive.class, "actionbazaar-test.war")
                 .addClasses(BidService.class, DefaultBidService.class,
                         BidRepository.class, DefaultBidRepository.class, Bid.class,
                         AddBid.class)
@@ -52,21 +48,16 @@ public class AddBidTest {
 
     @Test
     public void testAddBid() {
-        Warp.initiate(new Activity() {
-            @Override
-            public void perform() {
-                browser.navigate().to(contextPath + "add_bid.jsf");
-            }
-        }).inspect(new Inspection() {
-//                    @Inject
-//                    CdiBean myBean;
-//
-//                    @AfterPhase(RENDER_RESPONSE)
-//                    public void initial_state_havent_changed_yet() {
-//                        assertEquals("John", myBean.getName());
-//                    }
-        });
+        browser.navigate().to(contextPath + "add_bid.jsf");
 
+        browser.findElement(By.id("bidForm:itemTextField")).sendKeys("Test item");
+        browser.findElement(By.id("bidForm:bidderTextField")).sendKeys("rrahman");
+        browser.findElement(By.id("bidForm:amountTextField")).sendKeys("50.25");
+        browser.findElement(By.id("bidForm:addBidButton")).click();
+
+        assertEquals("Test item", browser.findElement(By.id("itemField")).getText());
+        assertEquals("rrahman", browser.findElement(By.id("bidderField")).getText());
+        assertEquals("50.25", browser.findElement(By.id("amountField")).getText());
 //
 //        JSFServerSession server = session.getJSFServerSession();
 //
@@ -83,8 +74,6 @@ public class AddBidTest {
 //
 //        assertEquals("/confirm_bid.xhtml", server.getCurrentViewID());
 //
-//        assertEquals("Test Item", server.getManagedBeanValue("#{bid.item}"));
-//        assertEquals("Test Bidder", server.getManagedBeanValue("#{bid.bidder}"));
-//        assertEquals(101.50, server.getManagedBeanValue("#{bid.amount}"));
+
     }
 }
