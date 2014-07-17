@@ -37,68 +37,76 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
 package com.actionbazaar.domain;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "BIDS")
 @XmlRootElement
 public class Bid implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    private static final long serialVersionUID = 1L;
 
-	private String bidder;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	private String item;
+    @NotNull(message = "Bidder name must not be null")
+    @Size(min = 5, max = 15, message = "Bidder name must be between 5 and 15 characters")
+    private String bidder;
 
-	private Double amount;
+    @NotNull(message = "Item name must not be null")
+    @Size(min = 5, max = 110, message = "Item name must be between 5 and 110 characters")
+    private String item;
 
-	public Long getId() {
-		return id;
-	}
+    @NotNull(message = "Bid amount must not be null")
+    @Min(value = 0, message = "Bid amount must not be negative")
+    private Double amount;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getBidder() {
-		return bidder;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setBidder(String bidder) {
-		this.bidder = bidder;
-	}
+    public String getBidder() {
+        return bidder;
+    }
 
-	public String getItem() {
-		return item;
-	}
+    public void setBidder(String bidder) {
+        this.bidder = bidder;
+    }
 
-	public void setItem(String item) {
-		this.item = item;
-	}
+    public String getItem() {
+        return item;
+    }
 
-	public Double getAmount() {
-		return amount;
-	}
+    public void setItem(String item) {
+        this.item = item;
+    }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+    public Double getAmount() {
+        return amount;
+    }
 
-	@Override
-	public String toString() {
-		return "Bid [id=" + id + ", bidder=" + bidder + ", item=" + item
-				+ ", amount=" + amount + "]";
-	}
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Bid [id=" + id + ", bidder=" + bidder + ", item=" + item
+                + ", amount=" + amount + "]";
+    }
 }

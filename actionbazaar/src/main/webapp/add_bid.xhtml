@@ -8,6 +8,7 @@
     <h:body>
         <h1>Add Bid</h1>
         <h:form id="bidForm">
+            <h:messages errorStyle="color: red"/>
             <h:panelGrid columns="2">
                 <h:outputLabel for="item">Item name:</h:outputLabel>
                 <h:inputText id="itemTextField" value="#{bid.item}" />

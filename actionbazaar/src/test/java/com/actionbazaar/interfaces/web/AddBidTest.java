@@ -38,7 +38,7 @@ public class AddBidTest {
                         AddBid.class)
                 .addAsWebInfResource("test-web.xml", "web.xml")
                 .addAsWebResource("add_bid.xhtml", "add_bid.xhtml")
-                .addAsWebResource("confirm_bid.xhtml", "confirm_bid.xhtml")
+                .addAsWebResource("confirm_add_bid.xhtml", "confirm_add_bid.xhtml")
                 .addAsWebInfResource("test-faces-config.xml",
                         "faces-config.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")

@@ -25,6 +25,6 @@ public class AddBid implements Serializable {
     public String onAdd() {
         bidService.addBid(bid);
 
-        return "confirm_bid.jsf";
+        return "confirm_add_bid.jsf";
     }
 }
