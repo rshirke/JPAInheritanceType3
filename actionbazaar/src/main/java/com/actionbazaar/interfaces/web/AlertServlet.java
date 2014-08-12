@@ -85,9 +85,9 @@ public class AlertServlet extends HttpServlet {
             }
 
             generator.writeEnd();
-            
+
             generator.write("goodbye", "No more alerts for now, timing out");
-            
+
             generator.writeEnd();
             generator.close();
         }
