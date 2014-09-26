@@ -51,7 +51,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -78,7 +77,7 @@ public class AddBidTest {
                 .addAsWebInfResource("test-web.xml", "web.xml")
                 .addAsWebResource("add_bid.xhtml", "add_bid.xhtml")
                 .addAsWebResource("confirm_add_bid.xhtml", "confirm_add_bid.xhtml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsResource("test-persistence.xml",
                         "META-INF/persistence.xml");
     }

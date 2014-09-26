@@ -44,12 +44,11 @@ import com.actionbazaar.domain.Bid;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class AddBid implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,7 +62,6 @@ public class AddBid implements Serializable {
     private final Bid bid = new Bid();
 
     public String onAdd() {
-        System.err.println(bid);
         bidService.addBid(bid);
 
         return "confirm_add_bid.jsf";
