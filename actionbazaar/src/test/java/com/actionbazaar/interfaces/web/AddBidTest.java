@@ -70,7 +70,7 @@ public class AddBidTest {
     @Deployment(testable = false)
     public static Archive<?> createDeployment() {
         return ShrinkWrap
-                .create(WebArchive.class, "actionbazaar-test.war")
+                .create(WebArchive.class, "actionbazaar-jsf-test.war")
                 .addClasses(BidService.class, DefaultBidService.class,
                         BidRepository.class, DefaultBidRepository.class, Bid.class,
                         AddBid.class)

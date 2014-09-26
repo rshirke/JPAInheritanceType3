@@ -57,7 +57,7 @@ public class AlertServletTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap
-                .create(WebArchive.class, "actionbazaar-test.war")
+                .create(WebArchive.class, "actionbazaar-servlet-test.war")
                 .addClass(AlertServlet.class);
     }
 
@@ -67,7 +67,7 @@ public class AlertServletTest {
 
         // Get account balance
         JsonObject response = client
-                .target("http://localhost:8080/actionbazaar-test/alerts")
+                .target("http://localhost:8080/actionbazaar-servlet-test/alerts")
                 .queryParam("user_id", "1111").request("application/json")
                 .get(JsonObject.class);
         // TODO Assert more of the content.

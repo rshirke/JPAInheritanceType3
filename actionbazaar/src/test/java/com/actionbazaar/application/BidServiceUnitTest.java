@@ -58,7 +58,7 @@ public class BidServiceUnitTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap
-                .create(WebArchive.class, "actionbazaar-test.war")
+                .create(WebArchive.class, "actionbazaar-service-unit-test.war")
                 .addClasses(BidService.class, DefaultBidService.class,
                         BidRepository.class, MockBidRepository.class, Bid.class)
                 .addAsWebInfResource("test-beans.xml", "beans.xml");

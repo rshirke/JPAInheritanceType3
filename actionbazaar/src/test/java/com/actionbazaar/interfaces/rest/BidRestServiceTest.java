@@ -66,7 +66,7 @@ public class BidRestServiceTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap
-                .create(WebArchive.class, "actionbazaar-test.war")
+                .create(WebArchive.class, "actionbazaar-rest-test.war")
                 .addClasses(BidRestService.class, RestConfiguration.class,
                         BidService.class, DefaultBidService.class,
                         BidRepository.class, DefaultBidRepository.class, Bid.class)
@@ -80,7 +80,7 @@ public class BidRestServiceTest {
     @InSequence(1)
     public void testAddBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:8080/actionbazaar-test/rest/bids");
+                .target("http://localhost:8080/actionbazaar-rest-test/rest/bids");
         // Save a new bid.
         Bid bid = new Bid();
 
@@ -105,7 +105,7 @@ public class BidRestServiceTest {
     @InSequence(2)
     public void testUpdateBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:8080/actionbazaar-test/rest/bids/{id}")
+                .target("http://localhost:8080/actionbazaar-rest-test/rest/bids/{id}")
                 .resolveTemplate("id", bidId);
 
         // Update bid.
@@ -127,7 +127,7 @@ public class BidRestServiceTest {
     @InSequence(3)
     public void testDeleteBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:8080/actionbazaar-test/rest/bids/{id}")
+                .target("http://localhost:8080/actionbazaar-rest-test/rest/bids/{id}")
                 .resolveTemplate("id", bidId);
 
         target.request().delete();

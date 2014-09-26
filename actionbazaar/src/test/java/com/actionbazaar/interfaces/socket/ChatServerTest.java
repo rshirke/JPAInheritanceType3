@@ -77,14 +77,14 @@ public class ChatServerTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap
-                .create(WebArchive.class, "actionbazaar-test.war")
+                .create(WebArchive.class, "actionbazaar-websocket-test.war")
                 .addClass(ChatMessage.class)
                 .addClass(ChatServer.class);
     }
 
     @Test
     public void testChat() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
-        URI uri = new URI("ws://localhost:8080/actionbazaar-test/chat");
+        URI uri = new URI("ws://localhost:8080/actionbazaar-websocket-test/chat");
 
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 

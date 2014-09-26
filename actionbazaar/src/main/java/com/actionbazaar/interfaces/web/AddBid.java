@@ -42,13 +42,13 @@ package com.actionbazaar.interfaces.web;
 import com.actionbazaar.application.BidService;
 import com.actionbazaar.domain.Bid;
 import java.io.Serializable;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-@SessionScoped
+@ApplicationScoped
 public class AddBid implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,7 +58,7 @@ public class AddBid implements Serializable {
 
     @Produces
     @Named
-    @SessionScoped
+    @ApplicationScoped
     private final Bid bid = new Bid();
 
     public String onAdd() {
