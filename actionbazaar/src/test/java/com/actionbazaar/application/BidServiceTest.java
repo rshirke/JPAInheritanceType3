@@ -68,9 +68,9 @@ public class BidServiceTest {
                 .addClasses(BidService.class, DefaultBidService.class,
                         Profiled.class, ProfilingInterceptor.class,
                         BidRepository.class, DefaultBidRepository.class, Bid.class)
-                .addAsWebInfResource("test-beans.xml", "beans.xml")
-                .addAsResource("test-persistence.xml",
-                        "META-INF/persistence.xml");
+                .addAsWebInfResource("test-persistence-web.xml", "web.xml")
+                .addAsWebInfResource("test-persistence-beans.xml", "beans.xml")
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
     }
 
     @EJB

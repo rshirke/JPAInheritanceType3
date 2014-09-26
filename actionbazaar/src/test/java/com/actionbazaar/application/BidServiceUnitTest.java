@@ -65,7 +65,7 @@ public class BidServiceUnitTest {
                 .create(WebArchive.class, "actionbazaar-test.war")
                 .addClasses(BidService.class, DefaultBidService.class,
                         BidRepository.class, MockBidRepository.class, Bid.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsWebInfResource("test-beans.xml", "beans.xml");
     }
 
     @EJB
