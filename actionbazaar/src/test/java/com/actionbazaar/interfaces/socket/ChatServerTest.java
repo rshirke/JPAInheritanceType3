@@ -65,6 +65,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
+// TODO Move test to client side.
 public class ChatServerTest {
 
     private static final Logger logger
@@ -73,7 +74,7 @@ public class ChatServerTest {
     private static ChatMessage testMessage;
     private static ChatMessage testReply;
 
-    @Deployment(testable = false)
+    @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class, "actionbazaar-test.war")
@@ -82,64 +83,60 @@ public class ChatServerTest {
     }
 
     @Test
-    public void testChat() {
-        try {
-            URI uri = new URI("ws://localhost:7001/actionbazaar-test/chat");
+    public void testChat() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
+        URI uri = new URI("ws://localhost:8080/actionbazaar-test/chat");
 
-            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
-            ClientEndpointConfig configuration = ClientEndpointConfig.Builder.create()
-                    .decoders(Arrays.<Class<? extends Decoder>>asList(ChatMessage.class))
-                    .encoders(Arrays.<Class<? extends Encoder>>asList(ChatMessage.class))
-                    .build();
+        ClientEndpointConfig configuration = ClientEndpointConfig.Builder.create()
+                .decoders(Arrays.<Class<? extends Decoder>>asList(ChatMessage.class))
+                .encoders(Arrays.<Class<? extends Encoder>>asList(ChatMessage.class))
+                .build();
 
-            Endpoint client1 = new Endpoint() {
-                @Override
-                public void onOpen(Session session, EndpointConfig config) {
-                    try {
-                        session.addMessageHandler(new MessageHandler.Whole<ChatMessage>() {
-                            @Override
-                            public void onMessage(ChatMessage message) {
-                                testReply = message;
-                            }
-                        });
-                        session.getBasicRemote().sendObject(
-                                new ChatMessage("rrahman", "Test message"));
-                    } catch (IOException | EncodeException e) {
-                        logger.log(Level.SEVERE, "Error in chat client", e);
-                    }
-                }
-            };
-
-            Endpoint client2 = new Endpoint() {
-                @Override
-                public void onOpen(final Session session, final EndpointConfig config) {
+        Endpoint client1 = new Endpoint() {
+            @Override
+            public void onOpen(Session session, EndpointConfig config) {
+                try {
                     session.addMessageHandler(new MessageHandler.Whole<ChatMessage>() {
                         @Override
                         public void onMessage(ChatMessage message) {
-                            try {
-                                testMessage = message;
-                                session.getBasicRemote().sendObject(new ChatMessage("nrahman", "Test reply"));
-                            } catch (IOException | EncodeException ex) {
-                                logger.log(Level.SEVERE, "Error responding to message", ex);
-                            }
+                            testReply = message;
                         }
                     });
+                    session.getBasicRemote().sendObject(
+                            new ChatMessage("rrahman", "Test message"));
+                } catch (IOException | EncodeException e) {
+                    logger.log(Level.SEVERE, "Error in chat client", e);
                 }
-            };
+            }
+        };
 
-            container.connectToServer(client2, configuration, uri);
-            container.connectToServer(client1, configuration, uri);
+        Endpoint client2 = new Endpoint() {
+            @Override
+            public void onOpen(final Session session, final EndpointConfig config) {
+                session.addMessageHandler(new MessageHandler.Whole<ChatMessage>() {
+                    @Override
+                    public void onMessage(ChatMessage message) {
+                        try {
+                            testMessage = message;
+                            session.getBasicRemote().sendObject(new ChatMessage("nrahman", "Test reply"));
+                        } catch (IOException | EncodeException ex) {
+                            logger.log(Level.SEVERE, "Error responding to message", ex);
+                        }
+                    }
+                });
+            }
+        };
+        
+        container.connectToServer(client2, configuration, uri);
+        container.connectToServer(client1, configuration, uri);
 
-            // Wait for conversation to finish.
-            Thread.sleep(2000);
+        // Wait for conversation to finish.
+        Thread.sleep(2000);
 
-            assertEquals("rrahman", testMessage.getUser());
-            assertEquals("Test message", testMessage.getMessage());
-            assertEquals("nrahman", testReply.getUser());
-            assertEquals("Test reply", testReply.getMessage());
-        } catch (URISyntaxException | DeploymentException | IOException | InterruptedException ex) {
-            logger.log(Level.SEVERE, "Error connecting to server", ex);
-        }
+        assertEquals("rrahman", testMessage.getUser());
+        assertEquals("Test message", testMessage.getMessage());
+        assertEquals("nrahman", testReply.getUser());
+        assertEquals("Test reply", testReply.getMessage());
     }
 }

@@ -42,6 +42,7 @@ package com.actionbazaar.interfaces.socket;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Singleton;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -49,6 +50,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+@Singleton
 @ServerEndpoint(value = "/chat",
         encoders = {ChatMessage.class}, decoders = {ChatMessage.class})
 public class ChatServer {

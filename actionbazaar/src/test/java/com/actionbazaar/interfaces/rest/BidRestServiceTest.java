@@ -51,7 +51,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -71,8 +70,8 @@ public class BidRestServiceTest {
                 .addClasses(BidRestService.class, RestConfiguration.class,
                         BidService.class, DefaultBidService.class,
                         BidRepository.class, DefaultBidRepository.class, Bid.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsWebInfResource("test-weblogic.xml", "weblogic.xml")
+                .addAsWebInfResource("test-beans.xml", "beans.xml")
+                .addAsWebInfResource("test-persistence-web.xml", "web.xml")
                 .addAsResource("test-persistence.xml",
                         "META-INF/persistence.xml");
     }
@@ -81,7 +80,7 @@ public class BidRestServiceTest {
     @InSequence(1)
     public void testAddBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:7001/actionbazaar-test/rest/bids");
+                .target("http://localhost:8080/actionbazaar-test/rest/bids");
         // Save a new bid.
         Bid bid = new Bid();
 
@@ -106,7 +105,7 @@ public class BidRestServiceTest {
     @InSequence(2)
     public void testUpdateBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:7001/actionbazaar-test/rest/bids/{id}")
+                .target("http://localhost:8080/actionbazaar-test/rest/bids/{id}")
                 .resolveTemplate("id", bidId);
 
         // Update bid.
@@ -128,7 +127,7 @@ public class BidRestServiceTest {
     @InSequence(3)
     public void testDeleteBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:7001/actionbazaar-test/rest/bids/{id}")
+                .target("http://localhost:8080/actionbazaar-test/rest/bids/{id}")
                 .resolveTemplate("id", bidId);
 
         target.request().delete();
