@@ -48,7 +48,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-@ApplicationScoped
+@ApplicationScoped // TODO Change this to flow scope.
 public class AddBid implements Serializable {
 
     private static final long serialVersionUID = 1L;
