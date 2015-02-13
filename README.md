@@ -28,6 +28,6 @@ Setup
    start GlassFish with an empty admin password. Also, GlassFish embedded is 
    no longer supported as of GlassFish 4 and cannot be used. Similarly, we ran
    into GlassFish bugs trying to use remote mode (normally the fastest option
-   with Arquillian). 
+   with Arquillian).
 * If desired, you can deploy and run the application manually. We did this both
   via NetBeans and by using the plain Maven generated war file.
