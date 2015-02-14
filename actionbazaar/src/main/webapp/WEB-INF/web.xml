@@ -25,6 +25,6 @@
     <data-source>
         <name>java:global/jdbc/ActionBazaarDB</name>
         <class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
-        <url>jdbc:derby:/tmp/actionbazaar-database;create=true</url>
+        <url>jdbc:derby:/tmp/actionbazaar-development-database;create=true</url>
     </data-source>
 </web-app>

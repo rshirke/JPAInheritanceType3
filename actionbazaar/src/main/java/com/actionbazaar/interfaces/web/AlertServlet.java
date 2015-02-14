@@ -41,7 +41,8 @@ package com.actionbazaar.interfaces.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
 import javax.servlet.ServletException;
@@ -54,16 +55,19 @@ import javax.servlet.http.HttpServlet;
 public class AlertServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = Logger
+            .getLogger(AlertServlet.class.getName());
 
     @Override
     public void service(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-
         response.setContentType("application/json");
 
         PrintWriter out = response.getWriter();
 
         long userId = Long.parseLong(request.getParameter("user_id"));
+
+        logger.log(Level.INFO, "Generating alerts for: {0}", userId);
 
         try (JsonGenerator generator = Json.createGenerator(out)) {
             generator.writeStartObject();

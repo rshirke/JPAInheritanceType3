@@ -57,8 +57,9 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+// Ran into weird bugs trying to run this on the client.
+// Probably another Maven dependency melee.
 @RunWith(Arquillian.class)
-// TODO Move this to client side.
 public class BidRestServiceTest {
 
     private static Long bidId;

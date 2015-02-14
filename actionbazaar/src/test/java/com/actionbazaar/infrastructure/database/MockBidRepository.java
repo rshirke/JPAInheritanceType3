@@ -39,18 +39,27 @@
  */
 package com.actionbazaar.infrastructure.database;
 
-import com.actionbazaar.domain.BidRepository;
 import com.actionbazaar.domain.Bid;
+import com.actionbazaar.domain.BidRepository;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MockBidRepository implements BidRepository {
 
+    private static final Logger logger = Logger
+            .getLogger(MockBidRepository.class.getName());
+
     @Override
     public Bid addBid(Bid bid) {
+        logger.log(Level.INFO, "Mock add bid.");
+
         return bid;
     }
 
     @Override
     public Bid getBid(Long id) {
+        logger.log(Level.INFO, "Mock get bid.");
+
         Bid bid = new Bid();
         bid.setId(id);
         bid.setBidder("nrahman");
@@ -62,11 +71,11 @@ public class MockBidRepository implements BidRepository {
 
     @Override
     public void updateBid(Bid bid) {
-        // NOOP
+        logger.log(Level.INFO, "Mock update bid.");
     }
 
     @Override
     public void deleteBid(Bid bid) {
-        // NOOP
+        logger.log(Level.INFO, "Mock delete bid.");
     }
 }
