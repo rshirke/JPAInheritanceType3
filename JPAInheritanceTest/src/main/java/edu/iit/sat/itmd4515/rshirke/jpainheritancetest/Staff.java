@@ -7,7 +7,7 @@ package edu.iit.sat.itmd4515.rshirke.jpainheritancetest;
 
 /**
  *
- * @author Rohan
+ * @author Rohan Shirke
  */
 import java.io.Serializable;
 
